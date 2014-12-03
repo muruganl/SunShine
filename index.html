@@ -1,0 +1,388 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="ExtCard" content="Online APPointment Doctor" />
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+<link rel="apple-touch-startup-image"
+	href="images/apple-touch-startup-image-320x460.png" />
+<title>Sunshine Dental - 'Tooth Decay Prevention'</title>
+<link type="text/css" rel="stylesheet" href="css/style.css" />
+<link type="text/css" rel="stylesheet" href="css/theme.css" />
+<link type="text/css" rel="stylesheet" href="css/idangerous.swiper.css" />
+<link type="text/css" rel="stylesheet" href="css/swipebox.css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300'
+	rel='stylesheet' type='text/css' />
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    $("#name").val("");
+    $("#emailId").val("");
+    $("#phoneNo").val("");
+	<!--Name can't be blank-->
+	$('#name').on('input', function() {
+	    var input=$(this);
+	    var is_name=input.val();
+	    if(is_name){input.removeClass("invalid").addClass("valid");}
+	    else{input.removeClass("valid").addClass("invalid");}
+	});
+	
+	<!--Phone No must be an Phone number-->
+	$('#phoneNo').on('input', function() {
+	    var input=$(this);
+	    var re = /^[0-9-+]+$/;
+	    var is_phone=re.test(input.val());
+	    if(is_phone){input.removeClass("invalid").addClass("valid");}
+	    else{input.removeClass("valid").addClass("invalid");}
+	});
+	<!--Email must be an email -->
+	$('#emailId').on('input', function() {
+	    var input=$(this);
+	    var re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+	    var is_email=re.test(input.val());
+	    if(is_email){input.removeClass("invalid").addClass("valid");}
+	    else{input.removeClass("valid").addClass("invalid");}
+	});
+	
+	<!--Website must be a website -->
+	$('#website').on('input', function() {
+	    var input=$(this);
+	    if (input.val().substring(0,4)=='www.'){input.val('http://www.'+input.val().substring(4));}
+	    var re = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/;
+	    var is_url=re.test(input.val());
+	    if(is_url){input.removeClass("invalid").addClass("valid");}
+	    else{input.removeClass("valid").addClass("invalid");}
+	});
+	
+});
+
+var myPhone="98417007148";
+var myEmail="apdurai66@gmail.com";
+
+function submitForm(mode)
+{
+	 var form_data=$("#contactForm").serializeArray();
+     var error_free=true;
+      for (var input in form_data)
+	    {
+	        var element=$("#"+form_data[input]['name']);
+	        var valid=element.hasClass("valid");
+	        var error_element=$("span", element.parent());
+	        if (!valid)
+	          {error_element.removeClass("error").addClass("error_show"); error_free=false;}
+	        else
+	          {error_element.removeClass("error_show").addClass("error");}
+	    }
+	    if (!error_free){
+	        event.preventDefault();
+	    }
+	    else
+	    {
+	        //alert('No errors: Form will be submitted');
+	        console.log('No errors: Form will be submitted');
+	        var name=$("#name").val();
+	        var email=$("#emailId").val();
+	        var phone=$("#phoneNo").val();
+	        
+	        var data="Name :" + name + "  " 
+	        		+ "Email Id :" + email + "  "
+	        		+ "Phone No :" + phone ;
+	        var dev=getMobileOperatingSystem();
+	        var fldSep="?";
+	        if (dev=="iOS")
+	        	{
+	        	fldSep=";";
+	        	}
+	        else if (dev=="Android")
+        		{
+	        	fldSep="?";
+        		}
+	        else if (dev=="unknown")
+        		{
+	        	fldSep="?";
+        		}
+	        
+
+	        if (mode=="sms")
+        	{
+        		data="sms:" + myPhone + fldSep + "body=" + data ; 
+        	}
+        	else if (mode=="email")
+        	{
+        		data="mailto:"  + myEmail + fldSep + "subject=Appointment&body=" + data ;
+        	}
+	        window.location.href=data;
+	    }
+	}
+	
+/**
+ * Determine the mobile operating system.
+ * This function either returns 'iOS', 'Android' or 'unknown'
+ *
+ * @returns {String}
+ */
+function getMobileOperatingSystem() {
+  var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+  if( userAgent.match( /iPad/i ) || userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) )
+  {
+    return 'iOS';
+
+  }
+  else if( userAgent.match( /Android/i ) )
+  {
+
+    return 'Android';
+  }
+  else
+  {
+    return 'unknown';
+  }
+}
+
+</script>
+</head>
+
+<body>
+	<div id="header">
+		<div class="gohome radius20">
+			<a href="#"><img src="images/icons/home.png" alt="" title="" /></a>
+		</div>
+		<div class="topHead">Sunshine Dental</div>
+		<div class="gomenu radius20">
+			<a href="#" onclick="swiperParent.swipeTo(3);"><img
+				src="images/icons/contact_us.png" alt="" title="" /></a>
+		</div>
+	</div>
+	<div class="swiper-container swiper-parent">
+		<div class="swiper-wrapper">
+
+			<!--Menu page-->
+			<div class="swiper-slide sliderbg_menu">
+				<div class="swiper-container swiper-nested">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<div class="slide-inner">
+								<div class="logo">
+									<a href="#"><img src="images/logo.png" alt="" title=""
+										border="0" /></a>
+									<p>Sunshine Dental</p>
+								</div>
+								<div class="menu">
+									<ul>
+										<li><a href="#">
+												<div class="round_img">
+													<img src="images/icons/about.png" alt="" title="" />
+												</div> <span>About Us</span>
+										</a></li>
+										<li><a href="#">
+												<div class="round_img">
+													<img src="images/icons/photos.png" alt="" title="" />
+												</div> <span>Gallery</span>
+										</a></li>
+										<li><a href="#">
+												<div class="round_img">
+													<img src="images/icons/contact.png" alt="" title="" />
+												</div> <span>Contact us</span>
+										</a></li>
+										<li class="bookAppoint"><a href="#"
+											class="button_11 bluegreen bluegreen_borderbottom radius8">Book
+												Appointment</a></li>
+									</ul>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-scrollbar"></div>
+				</div>
+			</div>
+
+			<!--Page 1 About -->
+			<div class="swiper-slide sliderbg">
+				<div class="swiper-container swiper-nested">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<div class="slide-inner">
+								<div class="pages_container">
+									<h2 class="page_title">About Sunshine Dental</h2>
+									<div class="image_single radius4">
+										<img src="images/page_photo.jpg" alt="" title="" border="0" />
+									</div>
+
+									<p>Welcome to Sunshine Dental, where we believe that a
+										dental experience should be painless, comfortable and positive
+										.We bring you our years of experience along with the
+										latest,least invasive and most preventive dental diagnostics
+										and treatment</p>
+									<p>Dr Ponnudurai Aranaganal completed his BDS in 1989, MDS
+										in 1993 and a certificate in orthodentics from Aarhus Denmark.
+										He is a pediatric and general dentist with an experience of
+										more than 20 years At Sunshine Dental we have invested in
+										dental Technology available such as dental lasers,digital
+										xrays,state of art implant system,painless dentistry with
+										sedation,Teeth whitening with zoom, 4 level protocol for
+										sterilization just to mention a few</p>
+									<div class="clearfix"></div>
+									<div class="scrolltop radius20">
+										<a href="#"><img src="images/icons/top.png"
+											alt="Go on top" title="Go on top" /></a>
+									</div>
+								</div>
+								<!--End of page container-->
+							</div>
+						</div>
+					</div>
+					<div class="swiper-scrollbar"></div>
+				</div>
+			</div>
+
+			<!--Page 5 Gallery-->
+			<div class="swiper-slide sliderbg">
+				<div class="swiper-container swiper-nested">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<div class="slide-inner">
+								<div class="pages_container">
+									<h2 class="page_title">Image Gallery</h2>
+									<ul class="photo_gallery_13">
+										<li><a rel="gallery-3"
+											href="images/photos/photo1_big.jpg" title="Photo title 1"
+											class="swipebox"><img src="images/photos/photo1.jpg"
+												alt="image" /></a></li>
+										<li><a rel="gallery-3" href="images/photos/photo2.jpg"
+											title="Photo title 2" class="swipebox"><img
+												src="images/photos/photo2.jpg" alt="image" /></a></li>
+										<li><a rel="gallery-3"
+											href="images/photos/photo3_big.jpg" title="Photo title 3"
+											class="swipebox"><img src="images/photos/photo3.jpg"
+												alt="image" /></a></li>
+
+									</ul>
+									<div class="clearfix"></div>
+
+								</div>
+								<!--End of page container-->
+							</div>
+						</div>
+					</div>
+					<div class="swiper-scrollbar"></div>
+				</div>
+			</div>
+
+			<!--Page 9 Contact-->
+			<div class="swiper-slide sliderbg">
+				<div class="swiper-container swiper-nested">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<div class="slide-inner">
+								<div class="pages_container">
+									<h2 class="page_title">Location address & Map</h2>
+									<address>
+										<strong>Sunshine Dental</strong><br> (Dr.Ponnudurai's
+										Dental Clinic)<br> 9/1,5th main road, R.A.Puram, <br>
+										Chennai 600 028 <br> Tamilnadu, <br> India. <br>
+										<br> <abbr title="Telephone">T:</abbr> 044-24339493,
+										42815363<br> <abbr title="Mobile">M:</abbr> +91 98410
+										07148 <br> <abbr title="Email">Email:</abbr>apdurai66@gmail.com
+									</address>
+									<h2>Follow us</h2>
+									<ul class="social">
+										<li class="social_facebook"><a href="#"><img
+												src="images/icons/social/facebook.png" alt="" title=""
+												border="0" /></a></li>
+										<li class="social_twitter"><a href="#"><img
+												src="images/icons/social/twitter.png" alt="" title=""
+												border="0" /></a></li>
+										<li class="social_google"><a href="#"><img
+												src="images/icons/social/google.png" alt="" title=""
+												border="0" /></a></li>
+									</ul>
+									<div class="clearfix"></div>
+									<div class="scrolltop radius20">
+										<a href="#"><img src="images/icons/top.png"
+											alt="Go on top" title="Go on top" /></a>
+									</div>
+								</div>
+								<!--End of page container-->
+							</div>
+						</div>
+					</div>
+					<div class="swiper-scrollbar"></div>
+				</div>
+			</div>
+
+			<!--Page 2 Book Appointment-->
+			<div class="swiper-slide sliderbg">
+				<div class="swiper-container swiper-nested">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<div class="slide-inner">
+								<div class="pages_container">
+									<h2 class="page_title">Book Appointment</h2>
+									<h2 id="Note"></h2>
+									<div class="form">
+										<form class="cmxform" id="contactForm" method="post" action="">
+											<div>
+												<label>Name:</label> <input type="text" name="name"
+													id="name" value="" class="form_input radius4 required" />
+												<span class="error">Invalid Name</span> <label>EMail:</label>
+											</div>
+											<div>
+												<input type="text" name="emailId" id="emailId" value=""
+													class="form_input radius4" /> <span class="error">Invalid
+													Email Id</span> <label>Phone No:</label>
+											</div>
+											<div>
+												<input type="text" name="phoneNo" id="phoneNo" value=""
+													class="form_input radius4 required email" /> <span
+													class="error">Invalid Phone Number</span> <label
+													id="loader" style="display: none;"><img
+													src="images/loader.gif" alt="Loading..."
+													id="LoadingGraphic" /></label>
+											</div>
+										</form>
+									</div>
+									<a href="#" onClick="submitForm('sms')"
+										class="call_button radius8">Send SMS</a> <a href="#"
+										onClick="submitForm('email')" class="mail_button radius8">Send
+										Mail</a> <a href="tel:24339493" class="call_button radius8">Call
+										Now!</a> <a
+										href="https://www.google.co.in/maps/place/5th+Main+Rd,+Govindaswamy+Nagar,+Raja+Annamalai+Puram,+Chennai,+Tamil+Nadu+600028/@13.0251382,80.2567875,19z/data=!3m1!4b1!4m2!3m1!1s0x3a5267c80d25a1dd:0xfab6aea95af4c975"
+										class="map_button radius8" target="_blank">View our
+										location</a>
+									<div class="clearfix"></div>
+									<div class="scrolltop radius20">
+										<a href="#"><img src="images/icons/top.png"
+											alt="Go on top" title="Go on top" /></a>
+									</div>
+								</div>
+								<!--End of page container-->
+							</div>
+						</div>
+					</div>
+					<div class="swiper-scrollbar"></div>
+				</div>
+			</div>
+
+			<!--End of pages-->
+
+		</div>
+		<div class="pagination"></div>
+	</div>
+	<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.swipebox.js"></script>
+	<script type="text/javascript" src="js/idangerous.swiper-2.1.min.js"></script>
+	<script type="text/javascript"
+		src="js/idangerous.swiper.scrollbar-2.1.js"></script>
+	<script type="text/javascript" src="js/jquery.tabify.js"></script>
+	<script type="text/javascript" src="js/jquery.fitvids.js"></script>
+	<script type="text/javascript" src="js/code.js"></script>
+	<script type="text/javascript" src="js/load.js"></script>
+	<script src="js/jquery.validate.min.js" type="text/javascript"></script>
+</body>
+</html>
