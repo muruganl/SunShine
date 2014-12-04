@@ -17,135 +17,8 @@
 <link type="text/css" rel="stylesheet" href="css/swipebox.css" />
 <link href='http://fonts.googleapis.com/css?family=Lato:300'
 	rel='stylesheet' type='text/css' />
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script>
-$(document).ready(function() {
-    $("#name").val("");
-    $("#emailId").val("");
-    $("#phoneNo").val("");
-	<!--Name can't be blank-->
-	$('#name').on('input', function() {
-	    var input=$(this);
-	    var is_name=input.val();
-	    if(is_name){input.removeClass("invalid").addClass("valid");}
-	    else{input.removeClass("valid").addClass("invalid");}
-	});
-	
-	<!--Phone No must be an Phone number-->
-	$('#phoneNo').on('input', function() {
-	    var input=$(this);
-	    var re = /^[0-9-+]+$/;
-	    var is_phone=re.test(input.val());
-	    if(is_phone){input.removeClass("invalid").addClass("valid");}
-	    else{input.removeClass("valid").addClass("invalid");}
-	});
-	<!--Email must be an email -->
-	$('#emailId').on('input', function() {
-	    var input=$(this);
-	    var re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-	    var is_email=re.test(input.val());
-	    if(is_email){input.removeClass("invalid").addClass("valid");}
-	    else{input.removeClass("valid").addClass("invalid");}
-	});
-	
-	<!--Website must be a website -->
-	$('#website').on('input', function() {
-	    var input=$(this);
-	    if (input.val().substring(0,4)=='www.'){input.val('http://www.'+input.val().substring(4));}
-	    var re = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/;
-	    var is_url=re.test(input.val());
-	    if(is_url){input.removeClass("invalid").addClass("valid");}
-	    else{input.removeClass("valid").addClass("invalid");}
-	});
-	
-});
-
-var myPhone="98417007148";
-var myEmail="apdurai66@gmail.com";
-
-function submitForm(mode)
-{
-	 var form_data=$("#contactForm").serializeArray();
-     var error_free=true;
-      for (var input in form_data)
-	    {
-	        var element=$("#"+form_data[input]['name']);
-	        var valid=element.hasClass("valid");
-	        var error_element=$("span", element.parent());
-	        if (!valid)
-	          {error_element.removeClass("error").addClass("error_show"); error_free=false;}
-	        else
-	          {error_element.removeClass("error_show").addClass("error");}
-	    }
-	    if (!error_free){
-	        event.preventDefault();
-	    }
-	    else
-	    {
-	        //alert('No errors: Form will be submitted');
-	        console.log('No errors: Form will be submitted');
-	        var name=$("#name").val();
-	        var email=$("#emailId").val();
-	        var phone=$("#phoneNo").val();
-	        
-	        var data="Name :" + name + "  " 
-	        		+ "Email Id :" + email + "  "
-	        		+ "Phone No :" + phone ;
-	        var dev=getMobileOperatingSystem();
-	        var fldSep="?";
-	        if (dev=="iOS")
-	        	{
-	        	fldSep=";";
-	        	}
-	        else if (dev=="Android")
-        		{
-	        	fldSep="?";
-        		}
-	        else if (dev=="unknown")
-        		{
-	        	fldSep="?";
-        		}
-	        
-
-	        if (mode=="sms")
-        	{
-        		data="sms:" + myPhone + fldSep + "body=" + data ; 
-        	}
-        	else if (mode=="email")
-        	{
-        		data="mailto:"  + myEmail + fldSep + "subject=Appointment&body=" + data ;
-        	}
-	        window.location.href=data;
-	    }
-	}
-	
-/**
- * Determine the mobile operating system.
- * This function either returns 'iOS', 'Android' or 'unknown'
- *
- * @returns {String}
- */
-function getMobileOperatingSystem() {
-  var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-
-  if( userAgent.match( /iPad/i ) || userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) )
-  {
-    return 'iOS';
-
-  }
-  else if( userAgent.match( /Android/i ) )
-  {
-
-    return 'Android';
-  }
-  else
-  {
-    return 'unknown';
-  }
-}
-
-</script>
 </head>
+
 
 <body>
 	<div id="header">
@@ -384,5 +257,129 @@ function getMobileOperatingSystem() {
 	<script type="text/javascript" src="js/code.js"></script>
 	<script type="text/javascript" src="js/load.js"></script>
 	<script src="js/jquery.validate.min.js" type="text/javascript"></script>
+	<script>
+
+var myPhone="98417007148";
+var myEmail="apdurai66@gmail.com";
+
+
+<!--Name can't be blank-->  
+$('#name').on('input', function() {
+    var input=$(this);
+    var is_name=input.val();
+    if(is_name){input.removeClass("invalid").addClass("valid");}
+    else{input.removeClass("valid").addClass("invalid");}
+});
+
+<!--Phone No must be an Phone number-->
+$('#phoneNo').on('input', function() {
+    var input=$(this);
+    var re = /^[0-9-+]+$/;
+    var is_phone=re.test(input.val());
+    if(is_phone){input.removeClass("invalid").addClass("valid");}
+    else{input.removeClass("valid").addClass("invalid");}
+});
+<!--Email must be an email -->
+$('#emailId').on('input', function() {
+    var input=$(this);
+    var re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    var is_email=re.test(input.val());
+    if(is_email){input.removeClass("invalid").addClass("valid");}
+    else{input.removeClass("valid").addClass("invalid");}
+});
+
+<!--Website must be a website -->
+$('#website').on('input', function() {
+    var input=$(this);
+    if (input.val().substring(0,4)=='www.'){input.val('http://www.'+input.val().substring(4));}
+    var re = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/;
+    var is_url=re.test(input.val());
+    if(is_url){input.removeClass("invalid").addClass("valid");}
+    else{input.removeClass("valid").addClass("invalid");}
+});
+
+
+function submitForm(mode)
+{
+	 var form_data=$("#contactForm").serializeArray();
+     var error_free=true;
+      for (var input in form_data)
+	    {
+	        var element=$("#"+form_data[input]['name']);
+	        var valid=element.hasClass("valid");
+	        var error_element=$("span", element.parent());
+	        if (!valid)
+	          {error_element.removeClass("error").addClass("error_show"); error_free=false;}
+	        else
+	          {error_element.removeClass("error_show").addClass("error");}
+	    }
+	    if (!error_free){
+	        event.preventDefault();
+	    }
+	    else
+	    {
+	        //alert('No errors: Form will be submitted');
+	        console.log('No errors: Form will be submitted');
+	        var name=$("#name").val();
+	        var email=$("#emailId").val();
+	        var phone=$("#phoneNo").val();
+	        
+	        var data="Name :" + name + "  " 
+	        		+ "Email Id :" + email + "  "
+	        		+ "Phone No :" + phone ;
+	        var dev=getMobileOperatingSystem();
+	        var fldSep="?";
+	        if (dev=="iOS")
+	        	{
+	        	fldSep=";";
+	        	}
+	        else if (dev=="Android")
+        		{
+	        	fldSep="?";
+        		}
+	        else if (dev=="unknown")
+        		{
+	        	fldSep="?";
+        		}
+	        
+
+	        if (mode=="sms")
+        	{
+        		data="sms:" + myPhone + fldSep + "body=" + data ; 
+        	}
+        	else if (mode=="email")
+        	{
+        		data="mailto:"  + myEmail + fldSep + "subject=Appointment&body=" + data ;
+        	}
+	        window.location.href=data;
+	    }
+	}
+	
+/**
+ * Determine the mobile operating system.
+ * This function either returns 'iOS', 'Android' or 'unknown'
+ *
+ * @returns {String}
+ */
+function getMobileOperatingSystem() {
+  var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+  if( userAgent.match( /iPad/i ) || userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) )
+  {
+    return 'iOS';
+
+  }
+  else if( userAgent.match( /Android/i ) )
+  {
+
+    return 'Android';
+  }
+  else
+  {
+    return 'unknown';
+  }
+}
+
+</script>
 </body>
 </html>
